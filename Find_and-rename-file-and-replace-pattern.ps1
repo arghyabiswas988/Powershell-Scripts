@@ -1,4 +1,16 @@
+<#
+.SYNOPSIS
+Search in soure folder and renaming files with pattarn.
 
+.DESCRIPTION
+Search in soure folder and renaming files with pattarn.
+
+.EXAMPLE
+Run the script. Change the variables and define patterns.
+
+.COPYRIGHT
+Arghya Biswas. Email:arghyabiswas988@gmail.com
+#>
 $Source = "F:\IDM\Video"
 #$Destination = "C:\Temp\Converted_Videos"
 $pattern1 = 'Volledige'
