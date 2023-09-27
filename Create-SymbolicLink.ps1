@@ -41,3 +41,5 @@ Add-Content "$($TargetDirectory)\desktop.ini" -Value $DesktopIni -Force
 #Finally, set the folder's attributes
 (Get-Item $TargetDirectory -Force).Attributes = 'ReadOnly, Directory'
 }
+#To hide and and archaive any file.
+#(Get-Item "F:\IDM\IDMan_346.ico" -force).Attributes = 'Hidden, System, Archive'
