@@ -27,7 +27,7 @@ $DesktopIni = @"
 [.ShellClassInfo]
 IconResource=C:\WINDOWS\System32\SHELL32.dll,115
 "@
-
+#"C:\Windows\system32\imageres.dll" #windows 11 icons.
 
 #Test-Path (Join-Path "$TargetDirectory" "desktop.ini")
 
