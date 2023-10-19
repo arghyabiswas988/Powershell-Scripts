@@ -20,3 +20,15 @@ Remove-Item -Path $SoftwarePath -Recurse -Force -ErrorAction SilentlyContinue
 #cleanmgr /d C
 
 cleanmgr /sagerun:1 | out-Null
+
+#QuickHealth check.
+#Dism.exe /Online /Cleanup-Image /CheckHealth
+
+#Advance health check.
+#Dism.exe /Online /Cleanup-Image /scanhealth
+
+#Analyze component store
+DISM.exe /Online  /Cleanup-Image /AnalyzeComponentStore
+
+#Cleanup
+Dism.exe /Online /Cleanup-Image /StartComponentCleanup /ResetBase
