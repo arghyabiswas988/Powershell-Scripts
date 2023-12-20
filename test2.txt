@@ -1,1 +1,49 @@
 
+Efficient Endpoint Management:
+
+Optimized Intune policies and configurations to efficiently manage and secure endpoints across the organization.
+Implemented automation scripts or solutions to streamline routine tasks and enhance endpoint management processes.
+Security Enhancements:
+
+Played a pivotal role in strengthening the organization's security posture through the implementation of Intune security features.
+Collaborated with security teams to deploy conditional access policies, compliance policies, and device threat protection measures.
+Migration and Integration Projects:
+
+Successfully led migration projects from legacy endpoint management systems to Intune.
+Integrated Intune with other Microsoft 365 services and third-party solutions to create a cohesive and secure IT environment.
+User Training and Adoption:
+
+Conducted user training sessions to enhance adoption and understanding of Intune features.
+Created documentation and guides for end-users to ensure they could leverage self-service capabilities provided by Intune.
+Troubleshooting and Issue Resolution:
+
+Developed expertise in troubleshooting Intune-related issues and provided timely resolutions.
+Implemented proactive monitoring solutions to identify and address potential problems before they impacted users.
+Compliance and Reporting:
+
+Ensured endpoints were compliant with organizational policies and industry regulations.
+Implemented robust reporting mechanisms to track compliance status, security incidents, and overall endpoint health.
+Collaboration with IT and Security Teams:
+
+Fostered strong collaboration with IT support and security teams to align Intune policies with overall IT and security strategies.
+Acted as a bridge between different departments to ensure a holistic approach to endpoint management.
+Stayed Informed About Updates and Roadmap:
+
+Stayed current with Intune updates, new features, and the Microsoft Endpoint Manager roadmap.
+Proactively implemented new features that aligned with organizational goals and improved endpoint management capabilities.
+Cost Optimization:
+
+Explored opportunities for cost optimization in Intune licensing and resource usage.
+Implemented measures to ensure efficient use of Intune resources while meeting organizational requirements.
+Leadership and Mentorship:
+
+Mentored junior engineers and team members, fostering a collaborative and knowledge-sharing culture.
+Took on leadership roles in projects, showcasing the ability to manage and guide a team effectively.
+Feedback and Continuous Improvement:
+
+Collected feedback from end-users and stakeholders to continuously improve the Intune environment.
+Implemented a feedback loop to incorporate user suggestions and address pain points in the endpoint management process.
+Certifications and Training:
+
+Obtained relevant certifications in Microsoft Endpoint Manager and related technologies.
+Encouraged and supported team members in pursuing certifications to enhance their skills.
