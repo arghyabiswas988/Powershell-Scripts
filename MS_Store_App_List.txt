@@ -1,0 +1,15 @@
+9PCFS5B6T72H #Paint
+9NBLGGH5FV99 #Paint 3D
+9MSMLRH6LZF3 #Windows Notepad
+9WZDNCRFHVN5 #Windows Calculator
+9WZDNCRFJBBG #Windows Camera
+9WZDNCRFJBH4 #Microsoft Photos
+9P7BP5VNWKX5 #Quick Assist
+9MZ95KL8MR0L #Snipping Tool
+9NBLGGH42THS #3D Viewer
+9WZDNCRFJ3T6 #3D Builder
+9NFFX4SZZ23L #Cortana
+9NBLGGH4QGHW #Microsoft Sticky Notes
+
+Get-AppxProvisionedPackage -Online | Select DisplayName,Version
+Get-AppxPackage -AllUsers | select Name,Version
