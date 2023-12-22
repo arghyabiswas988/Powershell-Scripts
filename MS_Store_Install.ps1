@@ -143,7 +143,7 @@ function Remove-CMSLogFile
 
     $prefix = $myInvocation.MyCommand.Name
 
-    [string]$logPath = ('{0}\Modern-Workplace-Logs\' -f $env:SystemDrive)
+    [string]$logPath = ('{0}\Temp\Logs\' -f $env:SystemDrive)
     
     # Remove old logs
     $logFiles = Get-ChildItem -Path $logpath -Filter ('{0}*.log' -f $LogPrefix) -File | Where-Object {$_.CreationTime -lt (Get-Date).AddDays((-1 * $Days))}
@@ -167,10 +167,10 @@ function Start-CMSLogging
 {
     <#
         .SYNOPSIS
-        Starts logging in the Modern-Workplace-Logs folder. Uses Start-Transcript.
+        Starts logging in the C:\Temp\Logs\ folder. Uses Start-Transcript.
 
         .DESCRIPTION
-        Starts logging in the Modern-Workplace-Logs folder. Uses Start-Transcript.
+        Starts logging in the C:\Temp\Logs\ folder. Uses Start-Transcript.
 
         .PARAMETER LogPrefix
         Prefix to use for the log file name.
@@ -190,7 +190,7 @@ function Start-CMSLogging
     )
     
     # Generates a standard name for log files
-    [string]$loggingPath = ('{0}\Modern-Workplace-Logs' -f $env:SystemDrive)
+    [string]$loggingPath = ('{0}\Temp\Logs\' -f $env:SystemDrive)
     [bool]$loggingPathExists = New-CMSLoggingPath -DirectoryPath $loggingPath
     
     if (!$loggingPathExists)
