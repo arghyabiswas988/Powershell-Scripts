@@ -6,7 +6,7 @@ $PW = 'enter your password' #| ConvertTo-SecureString | Export-Clixml -Path "C:\
 
 $securePW = ConvertTo-SecureString -String $PW -AsPlainText -Force
 $encryptedPW = ConvertFrom-SecureString -SecureString $securePW
-$encryptedPW | Out-File -FilePath "C:\Windows\8956235.xml"
+$encryptedPW | Out-File -FilePath "C:\Windows\8956235.xml" -Force
 
 # Retrieve encrypted password from file
 $encryptedPW = Get-Content -Path "C:\Windows\8956235.xml"
