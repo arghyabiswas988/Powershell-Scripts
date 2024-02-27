@@ -1,4 +1,10 @@
-﻿# Function to decrypt a password
+# Define your secret phrase
+$secretPhrase = "YourSecretPhraseHere"
+
+# Define a fixed IV for consistency
+$fixedIV = "1234567890123456"
+ 
+# Function to decrypt a password
 function Decrypt-Password {
     param (
         [string]$encryptedPassword
