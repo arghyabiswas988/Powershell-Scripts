@@ -37,7 +37,7 @@ function Encrypt-Password {
 
 
 # Example usage
-$plainPassword = 'Fucking@P@ssw0rd#Crezy!Bitch'
+$plainPassword = '<Enter your Password here>'
 
 # Encrypt the password
 $encryptedPassword = Encrypt-Password -password $plainPassword
