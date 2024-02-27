@@ -1,5 +1,5 @@
 ﻿# Define your secret phrase
-$secretPhrase = "YourSecretPhraseHere"
+$secretPhrase = "Your Secret Phrase Here"
 
 # Define a fixed IV for consistency
 $fixedIV = "1234567890123456"
@@ -42,4 +42,4 @@ $plainPassword = '<Enter your Password here>'
 # Encrypt the password
 $encryptedPassword = Encrypt-Password -password $plainPassword
 Write-Host "Encrypted Password: $encryptedPassword"
-$encryptedPassword | Out-File -FilePath "C:\Windows\Temp\874587458.tmp" -Force
+$encryptedPassword | Out-File -FilePath "C:\Windows\Temp\<File Name>.tmp" -Force
