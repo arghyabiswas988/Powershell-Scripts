@@ -83,7 +83,7 @@ $bytes = [System.Text.Encoding]::UTF8.GetBytes($VBSContent)
 [System.IO.File]::WriteAllBytes($RunmeVBS, $bytes)
 
 $jobname = 'Application packaging Test Script'
-$Action = New-ScheduledTaskAction -Execute 'C:\Windows\system32\wscript.exe' -Argument '<Location of the VBS>\RunMe_packager.vbs'
+$Action = New-ScheduledTaskAction -Execute 'C:\Windows\system32\wscript.exe' -Argument '$($RunmeVBS)'
 $Trigger1 = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes "10")
 $Trigger2 = New-ScheduledTaskTrigger -AtLogOn
 $Settings = New-ScheduledTaskSettingsSet -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries #-Hidden -Compatibility "Win8"
