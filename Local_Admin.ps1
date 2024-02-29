@@ -59,7 +59,7 @@ function Decrypt-Password {
 }
 
 
-$EncryptedData = Get-Content -Path '$($TempFile)'
+$EncryptedData = Get-Content -Path 'C:\Windows\Temp\<File Name>'
 # Decrypt the password
 $decryptedPassword = Decrypt-Password -encryptedPassword $EncryptedData
 #Write-Host "Decrypted Password: $decryptedPassword"
