@@ -65,7 +65,8 @@ $decryptedPassword = Decrypt-Password -encryptedPassword $EncryptedData
 #Write-Host "Decrypted Password: $decryptedPassword"
 
 $UserAccount = Get-LocalUser -Name "<Local user name>"
-$UserAccount | Set-LocalUser -Password $decryptedPassword
+$Password = ConvertTo-SecureString $decryptedPassword -AsPlainText -Force
+$UserAccount | Set-LocalUser -Password $Password
 '@
 
 $PSSContent | Out-File -FilePath $PackagerScript -Encoding utf8
