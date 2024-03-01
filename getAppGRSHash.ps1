@@ -1,3 +1,4 @@
+#https://call4cloud.nl/2022/07/retry-lola-retry/
 $appId = "a1d259fe-685d-4f75-bd6b-2785f9bb3688"
 
 $intuneLogList = Get-ChildItem -Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs" -Filter "IntuneManagementExtension*.log" -File | sort LastWriteTime -Descending | select -ExpandProperty FullName
