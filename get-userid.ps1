@@ -9,16 +9,15 @@ function Get-UserIDFromLogFile {
         return
     }
 
-    # Read the content of the log file
-    $logContent = Get-Content -Path $LogFilePath -Raw
+    # Define the pattern
+    $Pattern = 'ESPPreparation starts for userid: (\w{8}-\w{4}-\w{4}-\w{4}-\w{12})'
 
-    # Search for the pattern
-    $userIDPattern = "ESPPreparation starts for userid: (\w{8}-\w{4}-\w{4}-\w{4}-\w{12})"
-    $userIDMatch = [regex]::Match($logContent, $userIDPattern)
+    # Search for the pattern in the log file
+    $userIDMatch = Select-String -Path $LogFilePath -Pattern $Pattern -AllMatches
 
     # Check if a match is found
-    if ($userIDMatch.Success) {
-        $userID = $userIDMatch.Groups[1].Value
+    if ($userIDMatch.Matches.Count -gt 0) {
+        $userID = $userIDMatch.Matches[0].Groups[1].Value
         Write-Output $userID
     } else {
         Write-Host "UserID not found in the log file."
