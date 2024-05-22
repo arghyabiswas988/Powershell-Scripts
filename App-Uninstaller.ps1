@@ -34,6 +34,6 @@
 }
 
 # Example usage:
-# Uninstall-App -AppName "AppName"
+Uninstall-App -AppName "Teams Machine-Wide Installer"
 # or simply call Uninstall-App to list and select an app
-Uninstall-App
+# Uninstall-App
