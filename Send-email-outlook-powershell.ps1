@@ -47,7 +47,7 @@ foreach ($user in $usernames) {
             <p></p>
             <p>Application Location: </p>
             <p></p>
-            <p>@Could you please share your device name with Mrinmoy.</p>
+            <p>@Could you please share your device name with .</p>
             <p></p>
             <p>Best regards,</p>
             <div class="signature">
@@ -56,7 +56,7 @@ foreach ($user in $usernames) {
                 <p class="line3">Application Packager (Windows Devices)</p>
                 <p class="line4">Digital Workplace</p>
                 <p class="line5">Enterprise IT</p>
-                <p class="line6">+44 (0) 2081863491</p>
+                <p class="line6"><Phone Number></p>
                 <p class="line7">Upcoming Annual Leave:</p>
             </div>
         </body>
