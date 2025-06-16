@@ -1,0 +1,58 @@
+# Set backup folder path
+$backupFolder = "C:\Temp\Certificate"
+
+# Create backup folder if not exists
+if (-not (Test-Path $backupFolder)) {
+    New-Item -ItemType Directory -Path $backupFolder -Force | Out-Null
+}
+
+# Prompt for password to protect exported .pfx files
+$securePassword = Read-Host "Enter password to protect exported certificates (.pfx)" -AsSecureString
+
+# Ensure script is run as Administrator
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Warning "This script must be run as an Administrator!"
+    Exit
+}
+
+Write-Host "`nScanning LocalMachine\My (Personal) certificate store..." -ForegroundColor Cyan
+
+# Open the LocalMachine\My store
+$store = New-Object System.Security.Cryptography.X509Certificates.X509Store("My", "LocalMachine")
+$store.Open("ReadWrite")
+$certs = $store.Certificates
+
+if ($certs.Count -eq 0) {
+    Write-Host "No certificates found in LocalMachine\My." -ForegroundColor Yellow
+} else {
+    Write-Host "$($certs.Count) certificate(s) found. Starting backup and removal..." -ForegroundColor Magenta
+
+    foreach ($cert in $certs) {
+        try {
+            $thumbprint = $cert.Thumbprint.Replace(" ", "")
+            $commonName = ($cert.Subject -replace '.*CN=([^,]+).*', '$1') -replace '[^\w\-]', '_'
+            $dateStr = $cert.NotBefore.ToString("yyyyMMdd")
+            $fileBase = "$backupFolder\$commonName-$thumbprint-$dateStr"
+
+            if ($cert.HasPrivateKey) {
+                $bytes = $cert.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pfx, $securePassword)
+                [System.IO.File]::WriteAllBytes("$fileBase.pfx", $bytes)
+                Write-Host "Exported (with key): $($cert.Subject)" -ForegroundColor Green
+            } else {
+                $bytes = $cert.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Cert)
+                [System.IO.File]::WriteAllBytes("$fileBase.cer", $bytes)
+                Write-Host "Exported (no key): $($cert.Subject)" -ForegroundColor Yellow
+            }
+
+            # Remove the certificate
+            $store.Remove($cert)
+            Write-Host "Deleted: $($cert.Subject)" -ForegroundColor Red
+        }
+        catch {
+            Write-Warning "Failed to export/remove $($cert.Subject): $_"
+        }
+    }
+}
+
+$store.Close()
+Write-Host "`nOperation completed. Certificates backed up to: $backupFolder" -ForegroundColor Cyan
