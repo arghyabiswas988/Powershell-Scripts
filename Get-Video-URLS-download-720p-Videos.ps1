@@ -11,7 +11,7 @@ $ChromePath     = "C:\Program Files\Google\Chrome\Application\chrome.exe"
 $UserDir        = "$ENV:USERPROFILE\AppData\Local\Temp\chrome-debug-profile"
 $Endpoint       = "http://127.0.0.1:9222/json"
 $UrlFile        = "C:\Temp\Chrome_Profile_Download_URLs.txt"
-$DownloadFolder = "\\192.168.1.25\Others\Hot\IDM_Videos" #"C:\Temp\Downloads"
+$DownloadFolder = "C:\Temp\Downloads"
 
 # Ensure output directories exist
 $OutDir = Split-Path $UrlFile
@@ -110,3 +110,4 @@ foreach ($url in $urls) {
 
 Write-Host ""
 Write-Host "All downloads completed." -ForegroundColor Green
+
