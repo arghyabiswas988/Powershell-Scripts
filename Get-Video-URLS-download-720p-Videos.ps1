@@ -17,8 +17,20 @@ $FailedFile     = "C:\Temp\Chrome_Failed_download_URLs.txt"
 
 # Ensure folders exist
 if (!(Test-Path $UserDir)) { New-Item -ItemType Directory -Path $UserDir | Out-Null }
-if (!(Test-Path $DownloadFolder)) { New-Item -ItemType Directory -Path $DownloadFolder | Out-Null }
+#if (!(Test-Path $DownloadFolder)) { New-Item -ItemType Directory -Path $DownloadFolder | Out-Null }
 if (Test-Path $FailedFile) { Remove-Item $FailedFile -Force }
+try {
+    if (!(Test-Path -Path $DownloadFolder)) {
+
+        $null = New-Item -ItemType Directory -Path $DownloadFolder -ErrorAction Stop
+    }
+}
+catch {
+    Write-Host "Error: Failed to find or create the folder: $DownloadFolder"
+    Write-Host "Details: $($_.Exception.Message)"
+    exit 1
+}
+
 
 $scriptStart = Get-Date
 
