@@ -1,23 +1,42 @@
 <#
 .SYNOPSIS
-    Disables Windows Copilot, Edge AI features, Windows AI components, Notepad AI, and removes Copilot provisioned packages.
+    Disables Windows Copilot, Edge AI features, Windows AI components, Notepad AI, Paint AI, and removes Copilot provisioned packages.
 
 .DESCRIPTION
-    This script configures multiple registry policies to disable AI-related features across Windows, Edge, and Notepad.
+    This script configures multiple registry policies to disable AI-related features across Windows, Edge, Notepad, and Paint.
     It also removes Copilot Appx provisioned packages from the system.
 
 .AUTHOR
     Arghya Biswas
 
 .NOTES
-    Run this script with Administrator privileges.
+    Script auto-elevates if not run as Administrator.
 #>
 
-# Ensure script is running as Administrator
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
-    [Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Write-Host "Please run this script as Administrator." -ForegroundColor Red
-    exit 1
+# ===============================
+# Auto Elevation
+# ===============================
+$IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+    [Security.Principal.WindowsBuiltInRole] "Administrator"
+)
+
+if (-not $IsAdmin) {
+    Write-Host "Relaunching script as Administrator..." -ForegroundColor Yellow
+
+    $psi = New-Object System.Diagnostics.ProcessStartInfo
+    $psi.FileName = "powershell.exe"
+    $psi.Arguments = "-ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    $psi.Verb = "runas"
+
+    try {
+        [System.Diagnostics.Process]::Start($psi) | Out-Null
+    }
+    catch {
+        Write-Host "User cancelled elevation prompt." -ForegroundColor Red
+        exit 1
+    }
+
+    exit 0
 }
 
 Write-Host "===== Starting Configuration =====" -ForegroundColor Cyan
@@ -64,13 +83,22 @@ Set-RegistryValue -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WSAIFabricSvc" 
                   -Name "Start" -Value 3
 
 # ===============================
-# Paint AI Features
+# Paint AI Features (Defender Policy Path)
 # ===============================
-$paintPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Paint"
+$paintPolicyPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Paint"
 
-Set-RegistryValue -Path $paintPath -Name "DisableCocreator" -Value 1
-Set-RegistryValue -Path $paintPath -Name "DisableGenerativeFill" -Value 1
-Set-RegistryValue -Path $paintPath -Name "DisableAIFeature" -Value 1
+Set-RegistryValue -Path $paintPolicyPath -Name "DisableCocreator" -Value 1
+Set-RegistryValue -Path $paintPolicyPath -Name "DisableGenerativeFill" -Value 1
+Set-RegistryValue -Path $paintPolicyPath -Name "DisableAIFeature" -Value 1
+
+# ===============================
+# Paint AI Features (CurrentVersion Policy Path)
+# ===============================
+$paintCurrentPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Paint"
+
+Set-RegistryValue -Path $paintCurrentPath -Name "DisableCocreator" -Value 1
+Set-RegistryValue -Path $paintCurrentPath -Name "DisableGenerativeFill" -Value 1
+Set-RegistryValue -Path $paintCurrentPath -Name "DisableImageCreator" -Value 1
 
 # ===============================
 # Windows AI Settings
@@ -112,3 +140,4 @@ catch {
 }
 
 Write-Host "===== Completed =====" -ForegroundColor Cyan
+Write-Host "NOTE: Restart the computer for all changes to take effect." -ForegroundColor Yellow
