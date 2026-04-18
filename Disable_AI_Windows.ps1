@@ -1,9 +1,9 @@
-﻿<#
+<#
 .SYNOPSIS
-    Disables Windows Copilot, Edge AI features, Windows AI components, and removes Copilot provisioned packages.
+    Disables Windows Copilot, Edge AI features, Windows AI components, Notepad AI, and removes Copilot provisioned packages.
 
 .DESCRIPTION
-    This script configures multiple registry policies to disable AI-related features across Windows and Microsoft Edge.
+    This script configures multiple registry policies to disable AI-related features across Windows, Edge, and Notepad.
     It also removes Copilot Appx provisioned packages from the system.
 
 .AUTHOR
@@ -82,6 +82,13 @@ Set-RegistryValue -Path $aiPath -Name "AllowRecallExport" -Value 0
 Set-RegistryValue -Path $aiPath -Name "DisableAIDataAnalysis" -Value 1
 Set-RegistryValue -Path $aiPath -Name "DisableSettingsAgent" -Value 1
 Set-RegistryValue -Path $aiPath -Name "RemoveMicrosoftCopilotApp" -Value 1
+
+# ===============================
+# Notepad AI Features
+# ===============================
+$notepadPath = "HKLM:\SOFTWARE\Policies\WindowsNotepad"
+
+Set-RegistryValue -Path $notepadPath -Name "DisableAIFeatures" -Value 1
 
 # ===============================
 # Remove Copilot Provisioned Package
