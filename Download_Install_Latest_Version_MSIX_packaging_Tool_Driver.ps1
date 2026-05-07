@@ -64,7 +64,7 @@ try {
         "--silent"
     )
 
-    #$Process = Start-Process -FilePath $WingetPath -ArgumentList $WingetArgs -Wait -PassThru -NoNewWindow
+    $Process = Start-Process -FilePath $WingetPath -ArgumentList $WingetArgs -Wait -PassThru -NoNewWindow
 
     if ($Process.ExitCode -ne 0) {
         throw "Winget installation failed with exit code $($Process.ExitCode)"
