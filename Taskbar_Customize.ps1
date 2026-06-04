@@ -13,11 +13,42 @@ New-ItemProperty `
     -Force | Out-Null
 
 # Hide Search
-New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Force | Out-Null
-Set-ItemProperty `
+# ==================================================
+# Hide Search (Windows 11 24H2/25H2)
+# ==================================================
+
+Write-Host "Hiding Search..."
+
+# User preference
+New-Item `
+    -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" `
+    -Force | Out-Null
+
+New-ItemProperty `
     -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" `
     -Name "SearchboxTaskbarMode" `
-    -Value 0
+    -PropertyType DWord `
+    -Value 0 `
+    -Force | Out-Null
+
+New-ItemProperty `
+    -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" `
+    -Name "SearchboxTaskbarModeCache" `
+    -PropertyType DWord `
+    -Value 1 `
+    -Force | Out-Null
+
+# Policy-based enforcement
+New-Item `
+    -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" `
+    -Force | Out-Null
+
+New-ItemProperty `
+    -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" `
+    -Name "DisableSearchBoxSuggestions" `
+    -PropertyType DWord `
+    -Value 1 `
+    -Force | Out-Null
 
 # Hide Task View
 Set-ItemProperty `
@@ -53,11 +84,6 @@ Set-ItemProperty `
 
 Write-Host "Removing pinned taskbar applications..."
 
-# Stop Explorer
-Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
-
-Start-Sleep -Seconds 2
-
 # Remove taskbar pinned items
 $TaskbandKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband"
 
@@ -88,7 +114,14 @@ if (Test-Path $PinnedPath) {
 
 Write-Host "Restarting Explorer..."
 
+Write-Host "Restarting Explorer..."
+
+Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+Start-Sleep -Seconds 3
 Start-Process explorer.exe
+
+# Refresh shell
+rundll32.exe user32.dll,UpdatePerUserSystemParameters
 
 Write-Host ""
 Write-Host "========================================"
