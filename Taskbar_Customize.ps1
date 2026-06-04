@@ -57,12 +57,42 @@ Set-ItemProperty `
     -Value 0 `
     -Force
 
-# Hide Widgets
-Set-ItemProperty `
+# ==================================================
+# Disable Widgets (HKCU Only)
+# ==================================================
+
+Write-Host "Disabling Widgets..."
+
+New-Item `
+    -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+    -Force | Out-Null
+
+# Hide Widgets button
+New-ItemProperty `
     -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name "TaskbarDa" `
+    -PropertyType DWord `
     -Value 0 `
-    -Force
+    -Force | Out-Null
+
+# Additional Windows 11 builds
+New-Item `
+    -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Dsh" `
+    -Force | Out-Null
+
+New-ItemProperty `
+    -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Dsh" `
+    -Name "IsPrelaunchEnabled" `
+    -PropertyType DWord `
+    -Value 0 `
+    -Force | Out-Null
+
+New-ItemProperty `
+    -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Dsh" `
+    -Name "IsWidgetsAvailable" `
+    -PropertyType DWord `
+    -Value 0 `
+    -Force | Out-Null
 
 # Hide Chat / Teams
 Set-ItemProperty `
