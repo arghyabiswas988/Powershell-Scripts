@@ -181,6 +181,22 @@ $RestartShortcut.IconLocation = "shell32.dll,238"
 $RestartShortcut.Save()
 
 # ==================================================
+# Restore Classic Windows 11 Right-Click Menu
+# ==================================================
+
+Write-Host "Enabling classic Windows 11 context menu..."
+
+reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve | Out-Null
+
+Write-Host "Restarting Explorer..."
+
+Get-Process explorer -ErrorAction SilentlyContinue | Stop-Process -Force
+Start-Sleep -Seconds 2
+Start-Process explorer.exe
+
+Write-Host "Classic Windows 11 context menu enabled."
+
+# ==================================================
 # Completed
 # ==================================================
 
@@ -193,4 +209,7 @@ Write-Host "Created:"
 Write-Host " - Keep-Alive shortcut in Start Menu Programs"
 Write-Host " - RunAs shortcut on Desktop"
 Write-Host " - Restart shortcut on Desktop"
+Write-Host ""
+Write-Host "Configured:"
+Write-Host " - Classic Windows 11 context menu enabled"
 Write-Host ""
