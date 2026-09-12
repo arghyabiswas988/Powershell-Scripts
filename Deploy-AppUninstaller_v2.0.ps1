@@ -2,6 +2,7 @@
 # Script Name: Deploy-AppUninstaller.ps1
 # Description: Production-ready Interactive System App Uninstaller (Explicit Session + .NET Wrapper + Auto-Refresh)
 # Execution Context: SYSTEM / Administrator
+# ServiceUI.exe needs to be present in the script folder.
 # ==============================================================================
 
 [CmdletBinding()]
