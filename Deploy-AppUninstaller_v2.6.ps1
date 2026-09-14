@@ -3,6 +3,7 @@
 # Description: Professional System App Uninstaller (Bulk Uninstall + Final UI Fix)
 # Developer: argtek
 # Execution Context: SYSTEM / Administrator
+# logo.png and systemUI.exe needs to be present in the sript folder.
 # ==============================================================================
 
 [CmdletBinding()]
