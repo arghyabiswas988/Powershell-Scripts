@@ -11,11 +11,26 @@
 [CmdletBinding()]
 param (
     [Parameter(Mandatory=$false)]
+    [ValidateNotNullOrEmpty()]
     [string]$AppId = "Google.Chrome",
 
     [Parameter(Mandatory=$false)]
     [string]$LogPath = "C:\Temp\WingetInstall_Chrome_System.log"
 )
+# --- 1. Relaunch in 64-bit Process if currently in 32-bit ---
+if ([Environment]::Is64BitOperatingSystem -and -not [Environment]::Is64BitProcess) {
+    $ps64Path = Join-Path $env:WinDir "SysNative\WindowsPowerShell\v1.0\powershell.exe"
+    $scriptPath = $MyInvocation.MyCommand.Path
+
+    if ($scriptPath) {
+        & $ps64Path -NoProfile -ExecutionPolicy Bypass -File $scriptPath @PSBoundParameters
+    } else {
+        $commandBlock = [scriptblock]::Create($MyInvocation.MyCommand.Definition)
+        & $ps64Path -NoProfile -ExecutionPolicy Bypass -Command $commandBlock
+    }
+
+    exit $LASTEXITCODE
+}
 
 # -----------------------------------------------------------------------------
 # Helper Function: Logging
